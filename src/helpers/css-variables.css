@@ -1,0 +1,137 @@
+
+:root {
+  --black: rgb(0,0,0);
+  --dark-grey: rgba(0,0,0,0.8);
+  --grey: rgba(0,0,0,0.5);
+  --light-grey: rgba(0,0,0,0.2);
+  --blue: #6b98b8;
+  --green: #00cca2;
+  --light-green: rgba(190,219,193,0.7);
+  --yellow: #ffe7a5;
+  --light-yellow: #fffaf4;
+  --orange: #ff9d00;
+  --brick-red: #ff715b;
+  --light-red: rgba(252,94,94,0.05);
+  --silver:rgb(235,235,235);
+  --white: rgb(255,255,255);
+}
+
+@font-face{
+	font-family: Regular;
+	src: url(./fonts/Regular.otf)
+}
+
+@font-face{
+	font-family: Bold;
+	src: url(./fonts/Bold.otf);
+}
+
+@font-face{
+	font-family: Medium;
+	src: url(./fonts/Medium.otf);
+}
+
+@font-face{
+	font-family: Italics;
+	src: url(./fonts/Italic.otf);
+}
+
+h1,h2,h3,h4,h5,h6,p{
+  margin:0;
+  font-weight: normal;
+  font-family: Regular;
+}
+
+p{
+  font-size: 15px;
+}
+
+.medium{
+  font-size: 13px;
+  font-family: Regular;
+}
+
+.red{
+	color: red;
+}
+
+.grey{
+  color:var(--grey);
+}
+
+.dark-grey{
+  color:var(--dark-grey);
+}
+
+.small{
+  font-family: Regular;
+  font-size: 10px;
+  margin:0;
+}
+
+.padding-small{
+  padding: 5px;
+}
+
+.padding-medium{
+  padding: 10px;
+}
+
+.padding-large{
+  padding: 15px;
+}
+
+.padding-Xlarge{
+  padding: 20px;
+}
+
+.margin-small{
+  margin: 5px;
+}
+
+.margin-medium{
+  margin: 10px;
+}
+
+.margin-large{
+  margin: 15px;
+}
+
+.margin-Xlarge{
+  margin: 20px;
+}
+
+.loader {
+  position: relative;
+  top:10px;
+  left: 5px;
+  display: inline-block;
+  border: 4px solid var(--light-grey);
+  border-radius: 50%;
+  border-top: 4px solid var(--coral);
+  border-left: 4px solid var(--coral);
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-white {
+  border-top: 4px solid var(--white);
+  border-left: 4px solid var(--white);
+}
+
+.clickable{
+  cursor: pointer;
+}

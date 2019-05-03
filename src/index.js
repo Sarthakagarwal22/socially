@@ -1,12 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {Provider} from 'react-redux';
+import { createStore } from 'redux';
+import {Router, Route, Switch } from 'react-router-dom'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import history from './history'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import globalFunctions from './reducers';
+
+import PrivateRoute from './containers/private-route'
+import Login from './containers/login'
+
+import App from './components/app'
+import Home from './components/home'
+
+import './helpers/css-variables.css';
+
+
+const store = createStore(globalFunctions);
+
+const render = () => {
+	ReactDOM.render(
+		<Provider store={store}>
+    	<Router history={history}>
+    		<Switch>
+    			<Route path="/login" component={Login} />
+                    <App>
+                        <PrivateRoute path="/" component={Home} />
+                    </App>
+	      </Switch>
+    	</Router>
+  	</Provider>,
+		document.getElementById('root')
+	)
+}
+
+store.subscribe(render);
+render();
