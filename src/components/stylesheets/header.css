@@ -2,54 +2,15 @@
 	position:relative;
 	top:0;
 	left:0;
-	height:73px;
+	height:60px;
 	display: flex;
 	padding: 0 40px ;
 	justify-content: space-between;
 	font-family: Regular;
-	padding-left: 10%;
+	background: var(--blue);
+	align-items:center;
 }
 
 .left_header{
-	width: 30%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between; 
-}
-
-.online_header{
-	height: 9px;
-	width: 9px;
-	border-radius: 50%;
-	background: var(--green);
-}
-
-.on_call_header{
-	color: var(--green);
-}
-
-.timer_header{
-	color: white;
-	margin-right: 20px;
-	float: right;
-}
-
-.end_call_header{	
-	font-family: Regular;
-	background: red;
-	color:white;
-	border-radius: 4px;
-	padding: 7px 10px;
-	font-size: 10px;
-	border: none;
-	margin-left: 20px; 
-}
-
-.right_header{
-	color: white;
-	width: 25%;
-	margin-right:40px; 
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
+	color: var(--white);
 }

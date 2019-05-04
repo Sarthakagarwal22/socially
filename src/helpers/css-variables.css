@@ -5,6 +5,7 @@
   --grey: rgba(0,0,0,0.5);
   --light-grey: rgba(0,0,0,0.2);
   --blue: #6b98b8;
+  --coral: #039073;
   --green: #00cca2;
   --light-green: rgba(190,219,193,0.7);
   --yellow: #ffe7a5;
@@ -61,6 +62,22 @@ p{
 
 .dark-grey{
   color:var(--dark-grey);
+}
+
+.coral{
+  color:var(--coral);
+}
+
+.white {
+  color:var(--white);
+}
+
+.silver {
+  color: var(--silver);
+}
+
+.rounded-corner{
+  border-radius: 4px;
 }
 
 .small{

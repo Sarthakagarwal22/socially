@@ -8,11 +8,11 @@ import history from './history'
 
 import globalFunctions from './reducers';
 
-import PrivateRoute from './containers/private-route'
+// import PrivateRoute from './containers/private-route'
 import Login from './containers/login'
 
 import App from './components/app'
-import Home from './components/home'
+import Home from './containers/home'
 
 import './helpers/css-variables.css';
 
@@ -26,7 +26,7 @@ const render = () => {
     		<Switch>
     			<Route path="/login" component={Login} />
                     <App>
-                        <PrivateRoute path="/" component={Home} />
+                        <Route path="/home" component={Home} />
                     </App>
 	      </Switch>
     	</Router>
