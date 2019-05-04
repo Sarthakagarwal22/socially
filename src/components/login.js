@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {username,password} from '../local-data/config'
+
 import './stylesheets/login.css'
 
 export default class Login extends React.Component{
@@ -29,9 +32,9 @@ export default class Login extends React.Component{
 		this.props.reset()
 	}
 	
-	loginMethod(username,password) {
+	loginMethod(usernameEntered,passwordEntered) {
 		this.resestValidUsernameAndPassword()
-		if(username === "sarthakagarwal22" && password === "infeedo")
+		if(usernameEntered === username && passwordEntered === password)
 			this.props.successfulLogin()
 		else
 			this.props.unsuccessfulLogin()

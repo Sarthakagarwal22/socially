@@ -9,3 +9,8 @@ export const loginUnsuccessful = () => ({
 export const logout = () => ({
 	type: 'LOGOUT'
 })
+
+export const updatePostsArray = (posts) => ({
+	type:'UPDATE_POSTS_ARRAY',
+	posts
+})
