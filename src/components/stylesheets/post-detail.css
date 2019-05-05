@@ -1,6 +1,6 @@
 .post-detail-main{
 	background: var(--coral);
-	min-height: 100vh;
+	min-height: 84vh;
 }
 
 .post-detail-card{
@@ -62,5 +62,8 @@
 	}
 	.post-detail-edit-delete{
 		font-size: 15px;
+	}
+	.post-detail-main{
+		min-height: 91vh;
 	}
 }

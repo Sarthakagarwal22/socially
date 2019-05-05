@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap-modal';
 
 import {getRequest} from '../helpers/api-response';
 
-import {baseUrl} from '../local-data/config' 
+import {baseUrl,fetchPostUrl} from '../local-data/config' 
 
 import history from '../history';
 
@@ -22,6 +22,7 @@ export default class PostDetail extends React.Component{
 			showEditModal:false,
 			showSaveChangesButton:false
 		}	
+		this.postId = "";
 		this.post = {};
 		this.editedTitle = null;
 		this.editedBody = null;
@@ -29,13 +30,15 @@ export default class PostDetail extends React.Component{
 		this.fetchComments = this.fetchComments.bind(this);
 		this.saveEditedPost = this.saveEditedPost.bind(this);
 		this.closeModal = this.closeModal.bind(this);
+		this.fetchPostsFromApi = this.fetchPostsFromApi.bind(this);
+		this.setPostIdFromUrl = this.setPostIdFromUrl.bind(this);
 	}
 
 	async fetchComments(){
 		this.setState({showLoader:true,commentsOpen:!this.state.commentsOpen})
-		var comments = await getRequest(baseUrl+`/${this.props.match.params.id}/comments`);
+		var comments = await getRequest(baseUrl+`/${this.postId}/comments`);
 		console.log(comments)
-		var filteredComments = comments.filter((comment)=> comment.postId === +this.props.match.params.id)
+		var filteredComments = comments.filter((comment)=> comment.postId === +this.postId)
 		this.setState({comments:filteredComments,showLoader:false})
 	}
 
@@ -45,7 +48,7 @@ export default class PostDetail extends React.Component{
 
 	deletePost(){
 		if(window.confirm("Are you sure you want to delete this post")){
-			var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.props.match.params.id);
+			var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.postId);
 			this.props.setPostsArray(modifiedPostsArray);
 			this.props.setDeletedPostsArray(this.state.post)
 			history.push("/home");
@@ -53,7 +56,7 @@ export default class PostDetail extends React.Component{
 	}
 
 	fetchPostFromGlobalState(){
-		this.post = this.props.postsArray.find((post) => post.id === +this.props.match.params.id)
+		this.post = this.props.postsArray.find((post) => post.id === +this.postId)
 		this.setState({post:this.post})
 	}
 
@@ -75,17 +78,27 @@ export default class PostDetail extends React.Component{
 		this.closeModal()
 	}
 
-	componentDidMount(){
-		if(this.props.postsArray.length === 0)
-			history.push("/home")
-		
+	setPostIdFromUrl(){
+		this.postId = window.location.pathname.split("/posts/")[1]
+	}
+
+	async fetchPostsFromApi(){
+		var posts = await getRequest(fetchPostUrl);
+		this.props.setPostsArray(posts);
 		this.fetchPostFromGlobalState();
+	}
+
+	componentDidMount(){
+		this.setPostIdFromUrl()
+		if(this.props.postsArray.length > 0)
+			this.fetchPostFromGlobalState();
+
 	}
 
 	render(){
 		return(
 			<div className="post-detail-main">
-				<center><h1 className="padding-Xlarge white"> Details of Post {this.props.match.params.id}</h1>
+				<center><h1 className="padding-Xlarge white"> Details of Post {this.postId}</h1>
 				<div className="post-detail-card rounded-corner padding-Xlarge">
 					<br />
 					<div className="post-detail-post-header">
@@ -133,9 +146,9 @@ export default class PostDetail extends React.Component{
 		          aria-labelledby="ModalHeader"
 		        >
 		        <Modal.Header closeButton>
-		            <p className="modal_header_home">Edit the post</p>
+		            <h4>Edit the post</h4>
 		        </Modal.Header>
-		          <Modal.Body >
+		          <Modal.Body>
 		          {
 		          	
 		          	<div>

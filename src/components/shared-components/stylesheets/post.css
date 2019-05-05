@@ -12,6 +12,13 @@
 	box-shadow: 1px 1px 30px 1px rgba(0,0,0,0.6);
 }
 
+.post-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .post-detail-button{
 	width: 100%;
 }

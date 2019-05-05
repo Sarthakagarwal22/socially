@@ -24,11 +24,13 @@ const postsArray = (state=[],action) => {
 }
 
 const deletedPostsArray = (state=[],action) => {
+  var deletedPostsArray = state.slice();
   switch(action.type){
     case 'UPDATE_DELETED_POSTS_ARRAY':
-      var deletedPostsArray = state.slice();
       deletedPostsArray.push(action.post);
       return deletedPostsArray
+    case 'REMOVE_POST_FROM_DELETED_POSTS':
+      return deletedPostsArray.filter((post) => post.id !== action.postId)
     default :
       return state
   }

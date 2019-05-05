@@ -15,42 +15,51 @@ export default class Home extends React.Component {
 		super(props)
 		this.state = {
 			showLoader:false,
+			postsArray:[]
 		}
 		this.fetchPosts = this.fetchPosts.bind(this);
+		this.searchPosts = this.searchPosts.bind(this);
+	}
+
+	searchPosts(searchPhrase){
+		if(searchPhrase.length === 0){
+			this.setState({postsArray:this.props.postsArray})
+		}
+		else{
+			var filteredArrayAfterSearch = this.props.postsArray.filter((post)=> ((post.title.indexOf(searchPhrase)!== -1) || (post.body.indexOf(searchPhrase)!== -1) ))
+			this.setState({postsArray:filteredArrayAfterSearch})
+		}
 	}
 
 	async fetchPosts(){
 		this.setState({showLoader:true});
 		var posts = await getRequest(fetchPostUrl);
+		this.setState({showLoader:false, postsArray:posts})
 		this.props.setPostsArray(posts);
-		this.setState({showLoader:false})
 	}
 
 	componentDidMount(){
 		if(this.props.postsArray.length === 0)
 			this.fetchPosts();
-		console.log(this.props.deletedPostsArray)
+		else
+			this.setState({postsArray:this.props.postsArray})
 	}
 
 	render(){
-		let {
-			postsArray
-		} = this.props
 		return(
 			<div className="home-container">
 				<div className="white home-hero-banner">
+					<div className="home-hero-banner-pattern"></div>
 					{
 						this.props.deletedPostsArray.length>0 &&
 						<p className="home-deleted-posts small clickable" onClick={()=>{history.push("/deleted-posts")}}>View Deleted Posts</p>
 					}
-					<br />
 					<h2>Welcome to Socially!</h2>
 					<br />
-					<br className="hidden-md-dowm" />
-					<h3 className="hidden-md-dowm">Find the best posts, from all around the world.</h3> 
+					<h3>Find the best posts, from all around the world.</h3> 
 					<h5 className="hidden-md-dowm">All at one place</h5>
 					<br />
-					<input className="home-search-bar" type="text" placeholder="Search for your favourite posts"/>
+					<input className="home-search-bar" type="text" placeholder="Search for your favourite posts" onChange={(e)=>{this.searchPosts(e.target.value)}}/>
 				</div>
 			<br />
 			<div className="post-container">
@@ -60,7 +69,7 @@ export default class Home extends React.Component {
 				}
 				{
 					!this.state.showLoader &&
-					postsArray.map(post => (
+					this.state.postsArray.map(post => (
 						<Spost key={post.id} title={post.title} body={post.body} id={post.id} userId={post.userId}></Spost>
 					))
 				}
