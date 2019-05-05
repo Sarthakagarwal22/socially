@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap-modal';
 
-import {getRequest} from '../helpers/api-response';
+import {getRequest, deleteRequest, putRequest} from '../helpers/api-response';
 
 import {baseUrl,fetchPostUrl} from '../local-data/config' 
 
@@ -20,7 +20,9 @@ export default class PostDetail extends React.Component{
 			comments:[],
 			post:{},
 			showEditModal:false,
-			showSaveChangesButton:false
+			showSaveChangesButton:false,
+			disableSaveChangesButton:false
+
 		}	
 		this.postId = "";
 		this.post = {};
@@ -37,7 +39,6 @@ export default class PostDetail extends React.Component{
 	async fetchComments(){
 		this.setState({showLoader:true,commentsOpen:!this.state.commentsOpen})
 		var comments = await getRequest(baseUrl+`/${this.postId}/comments`);
-		console.log(comments)
 		var filteredComments = comments.filter((comment)=> comment.postId === +this.postId)
 		this.setState({comments:filteredComments,showLoader:false})
 	}
@@ -46,12 +47,15 @@ export default class PostDetail extends React.Component{
 		this.setState({showEditModal:false})
 	}
 
-	deletePost(){
+	async deletePost(){
 		if(window.confirm("Are you sure you want to delete this post")){
-			var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.postId);
-			this.props.setPostsArray(modifiedPostsArray);
-			this.props.setDeletedPostsArray(this.state.post)
-			history.push("/home");
+			var deletePostApiResponse = await deleteRequest(baseUrl+`/${this.postId}`);
+			if(deletePostApiResponse){ 
+				var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.postId);
+				this.props.setPostsArray(modifiedPostsArray);
+				this.props.setDeletedPostsArray(this.state.post)
+				history.push("/home");
+			}
 		}
 	}
 
@@ -60,22 +64,26 @@ export default class PostDetail extends React.Component{
 		this.setState({post:this.post})
 	}
 
-	saveEditedPost(title,body){
+	async saveEditedPost(title,body){
 		var newPost = {
 			id:this.state.post.id,
 			userId:this.state.post.userId,
 			title:title,
 			body:body
 		}
-		this.setState({post:newPost})
-		var updatedPostsArray = this.props.postsArray.map((post)=>{
-			if(post.id === this.state.post.id)
-				return newPost
-			else
-				return post
-		})
-		this.props.setPostsArray(updatedPostsArray);
-		this.closeModal()
+		this.setState({disableSaveChangesButton:true})
+		var updatedPostApiResponse = await putRequest(baseUrl+`/${this.postId}`,newPost)
+		if(updatedPostApiResponse){
+				this.setState({post:newPost,disableSaveChangesButton:false})
+				var updatedPostsArray = this.props.postsArray.map((post)=>{
+					if(post.id === this.state.post.id)
+						return newPost
+					else
+						return post
+				})
+				this.props.setPostsArray(updatedPostsArray);
+				this.closeModal()
+		}
 	}
 
 	setPostIdFromUrl(){
@@ -179,7 +187,13 @@ export default class PostDetail extends React.Component{
 						</label>
 						{
 							this.state.showSaveChangesButton &&
-							<center><br /><button className="post-detail-save-changes-button" onClick={()=>{this.saveEditedPost(this.editedTitle.value,this.editedBody.value)}}>Save Changes</button></center>
+							<center><br /><button 
+							className="post-detail-save-changes-button" 
+							onClick={()=>{
+								this.saveEditedPost(this.editedTitle.value,this.editedBody.value)
+							}}
+							disabled={this.state.disableSaveChangesButton}
+							>{this.state.disableSaveChangesButton ? "Saving...":"Save Changes"}</button></center>
 						}
 					</div>
 					}
