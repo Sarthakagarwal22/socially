@@ -1,5 +1,17 @@
-.main-home{
+.home-container{
 	background: var(--coral);
+	min-height: 100vh;
+	font-family: Regular;
+}
+
+.home-hero-banner {
+	background: var(--blue);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 10px;
 }
 
 .post-container{
@@ -7,3 +19,21 @@
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
+
+.home-deleted-posts{
+	align-self:flex-end; 
+}
+
+.home-search-bar{
+	font-size: 15px;
+}
+
+@media screen and (min-width: 768px){
+	.home-hero-banner{
+		padding: 40px;
+	}
+	.home-search-bar{
+		max-width:50%;
+		font-size: 15px;
+	}
+} 

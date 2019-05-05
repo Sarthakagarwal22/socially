@@ -10,6 +10,7 @@ import globalFunctions from './reducers';
 
 // import PrivateRoute from './containers/private-route'
 import Login from './containers/login'
+import PostDetail from './containers/post-detail'
 
 import App from './components/app'
 import Home from './containers/home'
@@ -27,6 +28,7 @@ const render = () => {
     			<Route path="/login" component={Login} />
                     <App>
                         <Route path="/home" component={Home} />
+                        <Route path="/posts/:id" component={PostDetail} />
                     </App>
 	      </Switch>
     	</Router>

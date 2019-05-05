@@ -25,8 +25,9 @@ export default class Home extends React.Component {
 	}
 
 	componentDidMount(){
-		// if(this.props.postArray.length = 0)
+		if(this.props.postsArray.length === 0)
 			this.fetchPosts();
+		console.log(this.props.deletedPostsArray)
 	}
 
 	render(){
@@ -34,9 +35,21 @@ export default class Home extends React.Component {
 			postsArray
 		} = this.props
 		return(
-			<div className="main-home">
-				<br />
-				<center><h1 className="white">Posts</h1></center>
+			<div className="home-container">
+				<div className="white home-hero-banner">
+					{
+						this.props.deletedPostsArray.length>0 &&
+						<p className="home-deleted-posts small">View Deleted Posts</p>
+					}
+					<br />
+					<h2>Welcome to Socially!</h2>
+					<br />
+					<br className="hidden-md-dowm" />
+					<h3 className="hidden-md-dowm">Find the best posts, from all around the world.</h3> 
+					<h5 className="hidden-md-dowm">All at one place</h5>
+					<br />
+					<input className="home-search-bar" type="text" placeholder="Search for your favourite posts"/>
+				</div>
 			<br />
 			<div className="post-container">
 				{

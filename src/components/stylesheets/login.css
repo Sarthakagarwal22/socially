@@ -57,18 +57,6 @@
 	width:90%;
 }
 
-button{
-	padding: 10px;	
-	border-radius: 4px;
-	width: 20vw;
-	font-family: Medium;
-	background: var(--blue);
-	color: white;
-	border:none;
-	margin-bottom: 5px;
-	cursor: pointer;
-}
-
 .footer{
 	margin-top: 6%;
 	position: fixed;

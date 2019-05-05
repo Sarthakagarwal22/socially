@@ -5,7 +5,8 @@ import { updatePostsArray } from '../actions'
 import Home from '../components/home'
 
 const mapStateToProps = state => ({
-	postsArray : state.postsArray
+	postsArray : state.postsArray,
+	deletedPostsArray: state.deletedPostsArray
 })
 
 const mapDispatchToProps = dispatch => ({

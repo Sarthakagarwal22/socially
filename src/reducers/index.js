@@ -23,9 +23,21 @@ const postsArray = (state=[],action) => {
   }
 }
 
+const deletedPostsArray = (state=[],action) => {
+  switch(action.type){
+    case 'UPDATE_DELETED_POSTS_ARRAY':
+      var deletedPostsArray = state.slice();
+      deletedPostsArray.push(action.post);
+      return deletedPostsArray
+    default :
+      return state
+  }
+}
+
 const globalFunctions = combineReducers({
   loginSuccessful,
-  postsArray
+  postsArray,
+  deletedPostsArray
 });
 
 export default globalFunctions;
