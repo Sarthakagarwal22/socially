@@ -50,7 +50,7 @@ export default class Home extends React.Component {
 					<div className="home-hero-banner-pattern"></div>
 					{
 						this.props.deletedPostsArray.length>0 &&
-						<p className="home-deleted-posts small clickable" onClick={()=>{window.location = "/#/deleted-posts"}}>View Deleted Posts</p>
+						<p className="home-deleted-posts small clickable" onClick={()=>{window.location = `${window.location.pathname}#/deleted-posts`}}>View Deleted Posts</p>
 					}
 					<h2>Welcome to Socially!</h2>
 					<br />

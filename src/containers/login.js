@@ -8,7 +8,7 @@ const mapStatetoProps = state => ({
 const mapDispatchtoProps = dispatch => ({
 	successfulLogin : () =>{
 		dispatch(loginSuccessful());
-		window.location = "/#/home";
+		window.location = `${window.location.pathname}#/home`;
 	},
 	unsuccessfulLogin : ()=>{dispatch(loginUnsuccessful())},
 	reset: () => {

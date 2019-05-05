@@ -52,7 +52,7 @@ export default class PostDetail extends React.Component{
 				var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.postId);
 				this.props.setPostsArray(modifiedPostsArray);
 				this.props.setDeletedPostsArray(this.state.post)
-				window.location = "/#/home";
+				window.location = `${window.location.pathname}#/home`;
 			}
 		}
 	}

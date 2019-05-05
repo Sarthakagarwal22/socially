@@ -16,7 +16,7 @@ export default class Spost extends React.PureComponent {
 		} = this.props
 		
 		return(
-			<div className="post rounded-corner padding-Xlarge margin-medium clickable" onClick={()=>{if(!deletedPost)window.location = `#/posts/${id}`}}>
+			<div className="post rounded-corner padding-Xlarge margin-medium clickable" onClick={()=>{if(!deletedPost)window.location = `${window.location.pathname}#/posts/${id}`}}>
 				<div className="post-header"><span className="post-user-badge">{userId}</span> 
 				{
 					deletedPost && 
