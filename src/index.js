@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
-import {Router, Route, Switch } from 'react-router-dom'
+import {Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import history from './history'
 
 import globalFunctions from './reducers';
 
-// import PrivateRoute from './containers/private-route'
+import PrivateRoute from './containers/private-route'
 import Login from './containers/login'
+import PostDetail from './containers/post-detail';
+import DeletedPosts from './containers/deleted-posts'
 
 import App from './components/app'
 import Home from './containers/home'
@@ -26,7 +28,10 @@ const render = () => {
     		<Switch>
     			<Route path="/login" component={Login} />
                     <App>
-                        <Route path="/home" component={Home} />
+                        <PrivateRoute exact path="/" render = {() => <Redirect to = {{pathname: "/login"}} />}/>
+                        <PrivateRoute path="/home" component={Home} />
+                        <PrivateRoute path="/posts/:id" component={PostDetail} />
+                        <PrivateRoute path="/deleted-posts" component={DeletedPosts} />
                     </App>
 	      </Switch>
     	</Router>

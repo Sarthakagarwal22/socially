@@ -57,7 +57,7 @@ export default class Login extends React.Component{
 					<label className="email_label">USERNAME <span style={{color:"red"}}> *</span><br/>
 					<input 
 					autoComplete="off"
-					autoFocus 
+					autoFocus
 					ref={node => {username=node}} 
 					type="text" 
 					name="user" 

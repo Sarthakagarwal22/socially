@@ -1,5 +1,29 @@
-.main-home{
+.home-container{
 	background: var(--coral);
+	min-height: 100vh;
+	font-family: Regular;
+}
+
+.home-hero-banner {
+	background: var(--blue);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 10px;
+	position: relative;
+	z-index: 0;
+}
+
+.home-hero-banner-pattern{
+	background: url("../../local-data/images/banner-background.png") center no-repeat;
+	width:100%;
+	height: 100%;
+	position: absolute;
+    z-index: -1;
+    left: 0;
+    opacity: 0.1;
 }
 
 .post-container{
@@ -7,3 +31,21 @@
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
+
+.home-deleted-posts{
+	align-self:flex-end; 
+}
+
+@media screen and (min-width: 768px){
+	.home-hero-banner{
+		padding: 40px;
+	}
+	.home-search-bar{
+		max-width:50%;
+	}
+	.home-hero-banner-pattern{
+		background-size: cover;
+		opacity: 0.03;
+	}
+
+} 
