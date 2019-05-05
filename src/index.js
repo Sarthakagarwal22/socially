@@ -10,7 +10,8 @@ import globalFunctions from './reducers';
 
 // import PrivateRoute from './containers/private-route'
 import Login from './containers/login'
-import PostDetail from './containers/post-detail'
+import PostDetail from './containers/post-detail';
+import DeletedPosts from './containers/deleted-posts'
 
 import App from './components/app'
 import Home from './containers/home'
@@ -29,6 +30,7 @@ const render = () => {
                     <App>
                         <Route path="/home" component={Home} />
                         <Route path="/posts/:id" component={PostDetail} />
+                        <Route path="/deleted-posts" component={DeletedPosts} />
                     </App>
 	      </Switch>
     	</Router>

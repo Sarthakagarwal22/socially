@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-bootstrap-modal';
 
 import {getRequest} from '../helpers/api-response';
 
@@ -6,6 +7,7 @@ import {baseUrl} from '../local-data/config'
 
 import history from '../history';
 
+import 'react-bootstrap-modal/lib/css/rbm-complete.css';
 import './stylesheets/post-detail.css'
 
 export default class PostDetail extends React.Component{
@@ -16,11 +18,17 @@ export default class PostDetail extends React.Component{
 			commentsOpen:false,
 			showLoader:false,
 			comments:[],
-			post:{}
+			post:{},
+			showEditModal:false,
+			showSaveChangesButton:false
 		}	
-		this.post = {}
+		this.post = {};
+		this.editedTitle = null;
+		this.editedBody = null;
 		this.fetchPostFromGlobalState = this.fetchPostFromGlobalState.bind(this);
 		this.fetchComments = this.fetchComments.bind(this);
+		this.saveEditedPost = this.saveEditedPost.bind(this);
+		this.closeModal = this.closeModal.bind(this);
 	}
 
 	async fetchComments(){
@@ -29,6 +37,10 @@ export default class PostDetail extends React.Component{
 		console.log(comments)
 		var filteredComments = comments.filter((comment)=> comment.postId === +this.props.match.params.id)
 		this.setState({comments:filteredComments,showLoader:false})
+	}
+
+	closeModal(){
+		this.setState({showEditModal:false})
 	}
 
 	deletePost(){
@@ -45,7 +57,28 @@ export default class PostDetail extends React.Component{
 		this.setState({post:this.post})
 	}
 
+	saveEditedPost(title,body){
+		var newPost = {
+			id:this.state.post.id,
+			userId:this.state.post.userId,
+			title:title,
+			body:body
+		}
+		this.setState({post:newPost})
+		var updatedPostsArray = this.props.postsArray.map((post)=>{
+			if(post.id === this.state.post.id)
+				return newPost
+			else
+				return post
+		})
+		this.props.setPostsArray(updatedPostsArray);
+		this.closeModal()
+	}
+
 	componentDidMount(){
+		if(this.props.postsArray.length === 0)
+			history.push("/home")
+		
 		this.fetchPostFromGlobalState();
 	}
 
@@ -58,7 +91,7 @@ export default class PostDetail extends React.Component{
 					<div className="post-detail-post-header">
 						<span className="post-detail-user-badge">{this.state.post.userId}</span>
 						<div className="post-detail-edit-delete">
-							<span><img src={require("../local-data/images/edit.svg")} height="20px" alt="edit icon" /> Edit Post </span> &nbsp;&nbsp;
+							<span className="clickable" onClick={()=>{this.setState({showEditModal:true,showSaveChangesButton:false})}}><img src={require("../local-data/images/edit.svg")} height="20px" alt="edit icon" /> Edit Post </span> &nbsp;&nbsp;
 							<span className="red clickable" onClick={()=>{this.deletePost()}}><img src={require("../local-data/images/delete.svg")} height="20px" alt="delete icon" /> Delete Post </span>
 						</div>
 					</div>
@@ -94,6 +127,51 @@ export default class PostDetail extends React.Component{
 					</div>
 				</div>
 				</center>
+				<Modal
+		          show={this.state.showEditModal}
+		          onHide={this.closeModal}
+		          aria-labelledby="ModalHeader"
+		        >
+		        <Modal.Header closeButton>
+		            <p className="modal_header_home">Edit the post</p>
+		        </Modal.Header>
+		          <Modal.Body >
+		          {
+		          	
+		          	<div>
+				        <label> Edit Title <br />
+				          <input 
+				          ref={node => {this.editedTitle=node}}
+			              autoFocus
+				          type="text" 
+				          defaultValue={this.state.post.title}
+				          onChange = {()=>{
+				          	this.setState({showSaveChangesButton:true})
+				          }}
+				          />
+				        </label>
+			            
+			            <br />
+			            <br />
+			            
+			            <label> Edit Body <br />
+			          	  <textarea
+			          	  	ref={node => {this.editedBody=node}} 
+			          	  	className="post-details-edit-body" 
+			          	  	defaultValue={this.state.post.body}
+			          	  	onChange = {()=>{
+				          	this.setState({showSaveChangesButton:true})
+				          	}}
+			          	  	/>
+						</label>
+						{
+							this.state.showSaveChangesButton &&
+							<center><br /><button className="post-detail-save-changes-button" onClick={()=>{this.saveEditedPost(this.editedTitle.value,this.editedBody.value)}}>Save Changes</button></center>
+						}
+					</div>
+					}
+		          </Modal.Body>
+		        </Modal>
 			</div>
 		)
 	}

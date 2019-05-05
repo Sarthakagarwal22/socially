@@ -48,15 +48,6 @@
 	margin:0;
 }
 
-.heading input{
-	padding: 10px;
-	font-size: 10px;
-	font-family: Regular;
-	border:1px solid var(--light-grey);
-	border-radius: 4px;
-	width:90%;
-}
-
 .footer{
 	margin-top: 6%;
 	position: fixed;

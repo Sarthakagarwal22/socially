@@ -6,6 +6,8 @@ import {getRequest} from '../helpers/api-response'
 
 import {fetchPostUrl} from '../local-data/config'
 
+import history from '../history'
+
 import './stylesheets/home.css'
 
 export default class Home extends React.Component {
@@ -39,7 +41,7 @@ export default class Home extends React.Component {
 				<div className="white home-hero-banner">
 					{
 						this.props.deletedPostsArray.length>0 &&
-						<p className="home-deleted-posts small">View Deleted Posts</p>
+						<p className="home-deleted-posts small clickable" onClick={()=>{history.push("/deleted-posts")}}>View Deleted Posts</p>
 					}
 					<br />
 					<h2>Welcome to Socially!</h2>

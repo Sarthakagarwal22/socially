@@ -24,16 +24,11 @@
 	align-self:flex-end; 
 }
 
-.home-search-bar{
-	font-size: 15px;
-}
-
 @media screen and (min-width: 768px){
 	.home-hero-banner{
 		padding: 40px;
 	}
 	.home-search-bar{
 		max-width:50%;
-		font-size: 15px;
 	}
 } 
