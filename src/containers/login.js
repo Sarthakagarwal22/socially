@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { loginSuccessful,loginUnsuccessful } from '../actions';
 import Login from '../components/login';
-import history from '../history'
 
 const mapStatetoProps = state => ({
 	loginSuccessful: state.loginSuccessful
@@ -9,7 +8,7 @@ const mapStatetoProps = state => ({
 const mapDispatchtoProps = dispatch => ({
 	successfulLogin : () =>{
 		dispatch(loginSuccessful());
-		history.push("/home");
+		window.location = "/#/home";
 	},
 	unsuccessfulLogin : ()=>{dispatch(loginUnsuccessful())},
 	reset: () => {

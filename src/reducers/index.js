@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-// import history from '../history'
 
 const loginSuccessful = (state=false,action) => {
   switch(action.type){

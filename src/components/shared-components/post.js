@@ -1,7 +1,5 @@
 import React from 'react';
 
-import history from '../../history'
-
 import './stylesheets/post.css';
 
 export default class Spost extends React.PureComponent {
@@ -18,7 +16,7 @@ export default class Spost extends React.PureComponent {
 		} = this.props
 		
 		return(
-			<div className="post rounded-corner padding-Xlarge margin-medium clickable" onClick={()=>{if(!deletedPost)history.push(`/posts/${id}`)}}>
+			<div className="post rounded-corner padding-Xlarge margin-medium clickable" onClick={()=>{if(!deletedPost)window.location = `#/posts/${id}`}}>
 				<div className="post-header"><span className="post-user-badge">{userId}</span> 
 				{
 					deletedPost && 

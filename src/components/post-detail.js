@@ -5,8 +5,6 @@ import {getRequest, deleteRequest, putRequest} from '../helpers/api-response';
 
 import {baseUrl,fetchPostUrl} from '../local-data/config' 
 
-import history from '../history';
-
 import 'react-bootstrap-modal/lib/css/rbm-complete.css';
 import './stylesheets/post-detail.css'
 
@@ -54,7 +52,7 @@ export default class PostDetail extends React.Component{
 				var modifiedPostsArray = this.props.postsArray.filter((post) => post.id !== +this.postId);
 				this.props.setPostsArray(modifiedPostsArray);
 				this.props.setDeletedPostsArray(this.state.post)
-				history.push("/home");
+				window.location = "/#/home";
 			}
 		}
 	}
@@ -87,7 +85,7 @@ export default class PostDetail extends React.Component{
 	}
 
 	setPostIdFromUrl(){
-		this.postId = window.location.pathname.split("/posts/")[1]
+		this.postId = window.location.hash.split("#/posts/")[1]
 	}
 
 	async fetchPostsFromApi(){

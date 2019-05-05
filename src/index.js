@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';
-import {Router, Route, Switch, Redirect } from 'react-router-dom'
-
-import history from './history'
+import {HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import globalFunctions from './reducers';
 
@@ -24,7 +22,7 @@ const store = createStore(globalFunctions);
 const render = () => {
 	ReactDOM.render(
 		<Provider store={store}>
-    	<Router history={history}>
+    	<Router>
     		<Switch>
     			<Route path="/login" component={Login} />
                     <App>
